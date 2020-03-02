@@ -3,6 +3,7 @@ using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace HDR_UK_Web_Application.Services
         private readonly IAccessTokenService _authenticationResult;
         private readonly IHttpClientFactory _factory;
         private readonly ILoggerManager _logger;
+        private static Dictionary<string, JObject> _cache = new Dictionary<string, JObject>();
 
         public ProtectedWebApiCallerService(IAccessTokenService authenticationResult, IHttpClientFactory factory, ILoggerManager logger)
         {
@@ -40,10 +42,14 @@ namespace HDR_UK_Web_Application.Services
 
             try
             {
-                HttpResponseMessage response = await client.GetAsync(webApiUrl);
-                string json = await response.Content.ReadAsStringAsync();
-                var res = JsonConvert.DeserializeObject<JObject>(json);
-                return res;
+                if (!_cache.ContainsKey(webApiUrl))
+                {
+                    HttpResponseMessage response = await client.GetAsync(webApiUrl);
+                    string json = await response.Content.ReadAsStringAsync();
+                    var res = JsonConvert.DeserializeObject<JObject>(json);
+                    _cache[webApiUrl] = res;
+                }
+                return _cache[webApiUrl];
             }
             catch (Exception ex)
             {
