@@ -46,6 +46,15 @@
     ```
 - Open a web browser and navigate to [https://localhost:5001/api/Patient/](https://localhost:5001/api/Patient/) to view a list of all patients.
 
+### .NET Development Certificate
+
+You may need to trust the local development certificate to visit `https` endpoints:
+
+```bash
+$ dotnet dev-certs https --trust
+```
+
+See [ASP.NET Self Signed Development Certificates](https://www.hanselman.com/blog/DevelopingLocallyWithASPNETCoreUnderHTTPSSSLAndSelfSignedCerts.aspx) for details.
 
 ## List of API endpoints
 
