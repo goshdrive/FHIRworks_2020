@@ -73,7 +73,7 @@ namespace HDR_UK_Web_Application
 
             app.UseCors(MyAllowSpecificOrigins);
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
 
 
