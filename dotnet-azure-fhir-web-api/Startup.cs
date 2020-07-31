@@ -2,9 +2,9 @@
 using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
-using HDR_UK_Web_Application.IServices;
-using HDR_UK_Web_Application.Services;
-using HDR_UK_Web_Application.Models;
+using dotnet_azure_fhir_web_api.IServices;
+using dotnet_azure_fhir_web_api.Services;
+using dotnet_azure_fhir_web_api.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 
-namespace HDR_UK_Web_Application
+namespace dotnet_azure_fhir_web_api
 {
     public class Startup
     {
@@ -47,6 +47,7 @@ namespace HDR_UK_Web_Application
             services.AddTransient<IResourceFetchService, ResourceFetchService>();
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IObservationService, ObservationService>();
+            services.AddTransient<IMedicationService, MedicationService>();
 
             services.AddCors(options =>
             {

@@ -1,12 +1,12 @@
-﻿using HDR_UK_Web_Application.IServices;
-using HDR_UK_Web_Application.Models;
+﻿using dotnet_azure_fhir_web_api.IServices;
+using dotnet_azure_fhir_web_api.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HDR_UK_Web_Application.Services
+namespace dotnet_azure_fhir_web_api.Services
 {
     public class ResourceFetchService : IResourceFetchService
     {
