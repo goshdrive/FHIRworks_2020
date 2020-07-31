@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace dotnet_azure_fhir_web_api.IServices
 {
-    interface IMedicationService
-{
-}
+    public interface IMedicationService
+    {
+        Task<List<JObject>> GetPatientMedication(string id);
+        Task<List<JObject>> GetPatientMedicationPages(string id, int pages);
+        Task<JObject> GetSingleMedication(string id);
+    }
 }
