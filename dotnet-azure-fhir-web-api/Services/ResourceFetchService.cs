@@ -24,12 +24,12 @@ namespace HDR_UK_Web_Application.Services
         {
             try
             {
-                _logger.LogInfo("Class: ResourceFetchService, Method: GetSinglePage");
+                _logger.LogInfo($"{Environment.NewLine}Class: ResourceFetchService, Method: GetSinglePage");
                 return await _caller.ProtectedWebApiCaller($"{config.BaseAddress}{requestOptions}");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Class: ResourceFetchService, Method: GetSinglePage, Exception: {ex.Message}");
+                _logger.LogError($"{Environment.NewLine}Class: ResourceFetchService, Method: GetSinglePage, {Environment.NewLine}Exception: {ex}, {Environment.NewLine}Message: {ex.Message}, {Environment.NewLine}StackTrace: {ex.StackTrace}");
                 return null;
             }
         }
@@ -40,13 +40,13 @@ namespace HDR_UK_Web_Application.Services
 
             try
             {
-                _logger.LogInfo("Class: ResourceFetchService, Method: GetAllPages");
+                _logger.LogInfo($"{Environment.NewLine}Class: ResourceFetchService, Method: GetAllPages");
                 var json = await _caller.ProtectedWebApiCaller($"{config.BaseAddress}{requestOptions}");
                 return await RetrieveAllPages(json, list);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Class: ResourceFetchService, Method: GetAllPages, Exception: {ex.Message}");
+                _logger.LogError($"{Environment.NewLine}Class: ResourceFetchService, Method: GetAllPages, {Environment.NewLine}Exception: {ex}, {Environment.NewLine}Message: {ex.Message}, {Environment.NewLine}StackTrace: {ex.StackTrace}");
                 return null;
             }
         }
@@ -63,7 +63,7 @@ namespace HDR_UK_Web_Application.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Class: ResourceFetchService, Method: GetPages, Exception: {ex.Message}");
+                _logger.LogError($"{Environment.NewLine}Class: ResourceFetchService, Method: GetPages, {Environment.NewLine}Exception: {ex}, {Environment.NewLine}Message: {ex.Message}, {Environment.NewLine}StackTrace: {ex.StackTrace}");
                 return null;
             }
         }

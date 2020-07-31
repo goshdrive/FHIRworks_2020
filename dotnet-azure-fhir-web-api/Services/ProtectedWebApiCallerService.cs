@@ -34,7 +34,7 @@ namespace HDR_UK_Web_Application.Services
             }
             else
             {
-                _logger.LogError("Class: ProtectedWebApiCallerService, Method: ProtectedWebApiCaller, Error: The access token is equal to null.");
+                _logger.LogError($"{Environment.NewLine}Class: ProtectedWebApiCallerService, Method: ProtectedWebApiCaller, Error: The access token is equal to null.");
                 return null;
             }
 
@@ -47,7 +47,7 @@ namespace HDR_UK_Web_Application.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Class: ProtectedWebApiCallerService, Method: ProtectedWebApiCaller, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
+                _logger.LogError($"{Environment.NewLine}Class: ProtectedWebApiCallerService, Method: ProtectedWebApiCaller, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
                 return null;
             }
 

@@ -34,19 +34,19 @@ namespace HDR_UK_Web_Application.Services
             AuthenticationResult result = null;
             try
             {
-                _logger.LogInfo("Class: AccessTokenService, Method: CreateAccessToken, Info: Acquire Token For Client.");
+                _logger.LogInfo($"{Environment.NewLine}Class: AccessTokenService, Method: CreateAccessToken, Info: Acquire Token For Client.");
                 result = await app.AcquireTokenForClient(scopes)
                             .ExecuteAsync();
             }
             catch (MsalUiRequiredException ex)
             {
-                _logger.LogError($"Class: AccessTokenService, Method: CreateAccessToken, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
+                _logger.LogError($"{Environment.NewLine}Class: AccessTokenService, Method: CreateAccessToken, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
                 return result;
 
             }
             catch (MsalServiceException ex)
             {
-                _logger.LogError($"Class: AccessTokenService, Method: CreateAccessToken, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
+                _logger.LogError($"{Environment.NewLine}Class: AccessTokenService, Method: CreateAccessToken, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
                 return result;
             }
 
@@ -59,7 +59,7 @@ namespace HDR_UK_Web_Application.Services
 
             try
             {
-                _logger.LogInfo("Class: AccessTokenService, Method: GetAuthenticationResult, Info: GetOrCreateAsync AuthenticationResult.");
+                _logger.LogInfo($"{Environment.NewLine}Class: AccessTokenService, Method: GetAuthenticationResult, Info: GetOrCreateAsync AuthenticationResult.");
                 result = await _cache.GetOrCreateAsync("AuthenticationResult", cacheEntry =>
                 {
                     cacheEntry.SetAbsoluteExpiration(TimeSpan.FromMinutes(59));
@@ -68,7 +68,7 @@ namespace HDR_UK_Web_Application.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Class: AccessTokenService, Method: GetAuthenticationResult, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
+                _logger.LogError($"{Environment.NewLine}Class: AccessTokenService, Method: GetAuthenticationResult, {Environment.NewLine} Exception: {ex}, {Environment.NewLine} Message: {ex.Message}, {Environment.NewLine} StackTrace: {ex.StackTrace}");
                 return result;
             }
 
