@@ -1,17 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http.Headers;
-using System.Text;
 using dotnet_azure_fhir_web_api.IServices;
 using dotnet_azure_fhir_web_api.Services;
 using dotnet_azure_fhir_web_api.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using NLog;
 
 namespace dotnet_azure_fhir_web_api
@@ -48,6 +45,7 @@ namespace dotnet_azure_fhir_web_api
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IObservationService, ObservationService>();
             services.AddTransient<IMedicationService, MedicationService>();
+            services.AddTransient<IDiagnosticService, DiagnosticService>();
 
             services.AddCors(options =>
             {

@@ -25,7 +25,7 @@ namespace dotnet_azure_fhir_web_api.Controllers
             return await _service.GetPatientMedication(id);
         }
 
-        // GET: api/Medication/single/<observation ID>
+        // GET: api/Medication/single/<medication ID>
         [HttpGet("single/{id}", Name = "GetSingleMedication")]
         public async Task<JObject> GetSingleObservation(string id)
         {
@@ -33,7 +33,7 @@ namespace dotnet_azure_fhir_web_api.Controllers
         }
 
         // GET: api/Medication/pages/<number of pages>/<patient ID>
-        [HttpGet("pages/{pages}/{id}", Name = "GetPatientMedicationnPages")]
+        [HttpGet("pages/{pages}/{id}", Name = "GetPatientMedicationPages")]
         public async Task<List<JObject>> GetPatientMedicationPages(string id, int pages)
         {
             return await _service.GetPatientMedicationPages(id, pages);
