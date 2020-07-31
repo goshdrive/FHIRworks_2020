@@ -16,7 +16,7 @@
 # Running the app
 
 - Clone the project and open it in Visual Studio Code.
-- Open the file **appsettings.json**
+- Create a file named **appsettings.json** on the root of the directory:
 
 
     ```json
