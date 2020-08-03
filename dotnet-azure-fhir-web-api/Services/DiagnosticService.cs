@@ -22,18 +22,15 @@ namespace dotnet_azure_fhir_web_api.Services
         public async Task<List<JObject>> GetPatientDiagnostic(string id)
         {
             _logger.LogInfo("Class: DiagnosticService, Method: GetPatientDiagnostic");
-            var json = await _resource.GetAllPages($"{requestOption[1]}{id}");
-            var result = (JArray)json[0]["entry"][0]["resource"]["result"];
-            List<string> observations = new List<string>();
-
-            foreach (var reference in result)
+            List<JObject> observations = new List<JObject>();
+            observations = await _observation.GetMultipleObservation(await GetObservationIds(id));
+            List<JObject> result = new List<JObject>();
+            foreach(var observation in observations)
             {
-                observations.Add(RemoveSubstring((string)reference["reference"], "Observation/"));
+                result.Add(GetLabResultsFromObservation(observation));
             }
 
-            var response = await _observation.GetMultipleObservation(observations);
-            return response;
-
+            return result;
         }
 
         public async Task<List<JObject>> GetPatientDiagnosticPages(string id, int pages)
@@ -46,6 +43,31 @@ namespace dotnet_azure_fhir_web_api.Services
         {
             _logger.LogInfo("Class: DiagnosticService, Method: GetSingleDiagnostic");
             return await _resource.GetSingleResource($"{requestOption[0]}{id}");
+        }
+
+        private async Task<List<string>> GetObservationIds(string id)
+        {
+            _logger.LogInfo("Class: DiagnosticService, Method: GetObservationIds");
+            var json = await _resource.GetAllPages($"{requestOption[1]}{id}");
+            var array = (JArray)json[0]["entry"][0]["resource"]["result"];
+            List<string> observationIds = new List<string>();
+
+            foreach (var reference in array)
+            {
+                observationIds.Add(RemoveSubstring((string)reference["reference"], "Observation/"));
+            }
+
+            return observationIds;
+        }
+
+        private JObject GetLabResultsFromObservation(JObject json)
+        {
+            return new JObject(
+                    new JProperty("type", json["code"]["text"]),
+                    new JProperty("date", json["issued"]),
+                    new JProperty("value", json["valueQuantity"]["value"]),
+                    new JProperty("unit", json["valueQuantity"]["unit"])
+                );
         }
 
         private string RemoveSubstring(string s, string sb)
