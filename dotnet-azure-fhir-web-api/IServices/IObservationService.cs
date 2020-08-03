@@ -9,5 +9,6 @@ namespace dotnet_azure_fhir_web_api.IServices
         Task<List<JObject>> GetPatientObservations(string id);
         Task<List<JObject>> GetPatientObservationPages(string id, int pages);
         Task<JObject> GetSingleObservation(string id);
+        Task<List<JObject>> GetMultipleObservation(List<string> ids);
     }
 }

@@ -20,19 +20,39 @@ namespace dotnet_azure_fhir_web_api.Services
             _logger = logger;
         }
 
-        public async Task<JObject> GetSinglePage(string requestOptions)
+        public async Task<JObject> GetSingleResource(string requestOptions)
         {
             try
             {
-                _logger.LogInfo($"{Environment.NewLine}Class: ResourceFetchService, Method: GetSinglePage");
+                _logger.LogInfo($"{Environment.NewLine}Class: ResourceFetchService, Method: GetSingleResource");
                 return await _caller.ProtectedWebApiCaller($"{config.BaseAddress}{requestOptions}");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{Environment.NewLine}Class: ResourceFetchService, Method: GetSinglePage, {Environment.NewLine}Exception: {ex}, {Environment.NewLine}Message: {ex.Message}, {Environment.NewLine}StackTrace: {ex.StackTrace}");
+                _logger.LogError($"{Environment.NewLine}Class: ResourceFetchService, Method: GetSingleResource, {Environment.NewLine}Exception: {ex}, {Environment.NewLine}Message: {ex.Message}, {Environment.NewLine}StackTrace: {ex.StackTrace}");
                 return null;
             }
         }
+
+        public async Task<List<JObject>> GetMultipleResources(string requestOptions, List<string> ids)
+        {
+            try
+            {
+                _logger.LogInfo($"{Environment.NewLine}Class: ResourceFetchService, Method: GetMultipleResources");
+                List<JObject> results = new List<JObject>();
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    results.Add(await GetSingleResource($"{requestOptions}{ids[i]}"));
+                }
+                return results;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{Environment.NewLine}Class: ResourceFetchService, Method: GetMultipleResources, {Environment.NewLine}Exception: {ex}, {Environment.NewLine}Message: {ex.Message}, {Environment.NewLine}StackTrace: {ex.StackTrace}");
+                return null;
+            }
+        }
+
 
         public async Task<List<JObject>> GetAllPages(string requestOptions)
         {
@@ -67,8 +87,6 @@ namespace dotnet_azure_fhir_web_api.Services
                 return null;
             }
         }
-
-
 
         private async Task<List<JObject>> RetrieveAllPages(JObject json, List<JObject> list)
         {

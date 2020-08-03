@@ -34,7 +34,7 @@ namespace dotnet_azure_fhir_web_api.Services
         public async Task<JObject> GetSingleMedication(string id)
         {
             _logger.LogInfo("Class: MedicationService, Method: GetSingleMedication");
-            return await _resource.GetSinglePage($"{requestOption[0]}{id}");
+            return await _resource.GetSingleResource($"{requestOption[0]}{id}");
         }
     }
 }

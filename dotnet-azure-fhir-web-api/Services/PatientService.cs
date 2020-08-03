@@ -32,7 +32,7 @@ namespace dotnet_azure_fhir_web_api.Services
         public async Task<JObject> GetPatient(string id)
         {
             _logger.LogInfo("Class: PatientService, Method: GetPatient");
-            return await _resource.GetSinglePage($"{requestOption}{id}");
+            return await _resource.GetSingleResource($"{requestOption}{id}");
         }
 
 

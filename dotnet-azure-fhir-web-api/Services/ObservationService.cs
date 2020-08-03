@@ -32,7 +32,13 @@ namespace dotnet_azure_fhir_web_api.Services
         public async Task<JObject> GetSingleObservation(string id)
         {
             _logger.LogInfo("Class: ObservationService, Method: GetSingleObservation");
-            return await _resource.GetSinglePage($"{requestOption[0]}{id}");
+            return await _resource.GetSingleResource($"{requestOption[0]}{id}");
+        }
+
+        public async Task<List<JObject>> GetMultipleObservation(List<string> ids)
+        {
+            _logger.LogInfo("Class: ObservationService, Method: GetMultipleObservation");
+            return await _resource.GetMultipleResources($"{requestOption[0]}", ids);
         }
 
     }
