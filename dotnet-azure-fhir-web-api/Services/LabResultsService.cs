@@ -5,21 +5,21 @@ using System.Threading.Tasks;
 
 namespace dotnet_azure_fhir_web_api.Services
 {
-    public class DiagnosticService : IDiagnosticService
+    public class LabResultsService : ILabResultsService
     {
         private static readonly string[] requestOption = new string[] { "/DiagnosticReport/", "/DiagnosticReport?patient=" };
         private readonly IResourceFetchService _resource;
         private readonly ILoggerManager _logger;
         private readonly IObservationService _observation;
 
-        public DiagnosticService(IResourceFetchService resource, ILoggerManager logger, IObservationService observation)
+        public LabResultsService(IResourceFetchService resource, ILoggerManager logger, IObservationService observation)
         {
             _resource = resource;
             _logger = logger;
             _observation = observation;
         }
 
-        public async Task<List<JObject>> GetPatientDiagnostic(string id)
+        public async Task<List<JObject>> GetPatientLabResults(string id)
         {
             _logger.LogInfo("Class: DiagnosticService, Method: GetPatientDiagnostic");
             List<JObject> observations = new List<JObject>();
@@ -31,18 +31,6 @@ namespace dotnet_azure_fhir_web_api.Services
             }
 
             return result;
-        }
-
-        public async Task<List<JObject>> GetPatientDiagnosticPages(string id, int pages)
-        {
-            _logger.LogInfo("Class: DiagnosticService, Method: GetPatientDiagnosticPages");
-            return await _resource.GetPages($"{requestOption[1]}{id}", pages);
-        }
-
-        public async Task<JObject> GetSingleDiagnostic(string id)
-        {
-            _logger.LogInfo("Class: DiagnosticService, Method: GetSingleDiagnostic");
-            return await _resource.GetSingleResource($"{requestOption[0]}{id}");
         }
 
         private async Task<List<string>> GetObservationIds(string id)

@@ -45,7 +45,7 @@ namespace dotnet_azure_fhir_web_api
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IObservationService, ObservationService>();
             services.AddTransient<IMedicationService, MedicationService>();
-            services.AddTransient<IDiagnosticService, DiagnosticService>();
+            services.AddTransient<ILabResultsService, LabResultsService>();
             services.AddTransient<IVitalSignsService, VitalSignsService>();
 
             services.AddCors(options =>
